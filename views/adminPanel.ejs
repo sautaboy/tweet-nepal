@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/stylesheets/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <style>
+        :root {
+            --border_color: rgb(52, 54, 57);
+            --yellow: rgb(233, 161, 48);
+            --grey: rgb(127, 127, 127);
+            --black: rgb(33, 33, 33);
+            --dark: rgb(45, 45, 45);
+            --white: #fff;
+            --icon-color: rgb(247, 226, 171);
+        }
+
+
+        select {
+            height: 100%;
+            background: none;
+            padding: 1rem;
+            outline: none;
+            width: 50%;
+        }
+
+        #main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        div.search {
+            background: #111;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            width: 50%;
+        }
+
+        div.search i {
+            color: var(--icon-color);
+        }
+
+        div.search {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        div.search input {
+            outline: none;
+            padding: 1rem;
+            width: 90%;
+            color: #111;
+        }
+
+        div.search i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 10%;
+            font-size: 2rem;
+        }
+
+        .container {
+            margin-top: 10px;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            overflow: auto;
+        }
+
+
+        table td {
+            padding: 1rem;
+            border: 1px solid #fff;
+            width: 5rem;
+            position: relative;
+            font-size: 12px;
+            overflow-y: scroll;
+            height: 10vh;
+        }
+
+        .user-posts {
+            margin-top: 10px;
+            border: 1px solid #111;
+            display: none;
+            overflow: auto;
+        }
+
+        i {
+            color: red;
+        }
+
+
+        table img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+
+        button.see-post-button {
+            width: 10rem;
+            padding: 10px;
+            margin-top: 10px;
+            background: #222;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .user-posts.active {
+            display: block;
+        }
+
+        @media (max-width:900px) {
+            #main {
+                padding: 2%;
+            }
+
+            div.search {
+                width: 100%;
+                padding: 2%;
+            }
+
+            .container {
+                overflow: scroll;
+                width: 100%;
+                padding: 2%;
+            }
+
+            h1 {
+                text-align: center;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="main">
+        <h1>Admin Panel of Tweet Nepal</h1>
+        <div class="search">
+            <input type="text" placeholder="Search username" class="input-username">
+            <i class="ri-user-search-line"></i>
+        </div>
+
+
+        <div class="container" style="background: #111">
+            <table class="searched-username-container">
+                <tr>
+                    <td class="user-id">User Id</td>
+                    <td class="username">Username</td>
+                    <td class="name">Name</td>
+                    <td class="number-of-post">Number of Posts</td>
+                    <td class="note">Note</td>
+                    <td class="user-photo">User Photo</td>
+                    <td class="delete">Delete</td>
+                </tr>
+
+                <!-- list of users -->
+
+                <%users.reverse().forEach((eachUser)=>{%>
+                    <tr class="username-row">
+                        <td class="user-id">
+                            <%=eachUser._id%>
+                        </td>
+                        <td class="username">
+                            <%=eachUser.username%>
+                        </td>
+                        <td class="name">
+                            <%=eachUser.name%>
+                        </td>
+
+                        <td class="user-posts-container">
+                            <span>
+                                Post Count
+                                <%=eachUser.posts.length%>
+
+                            </span>
+
+                            <button class="see-post-button">
+                                <span>see post</span>
+                                <i class="ri-arrow-down-s-line"></i>
+                            </button>
+                            <!-- list of userposts -->
+
+                            <% eachUser.posts.forEach((eachPost)=>{%>
+                                <div class="user-posts">
+                                    <table>
+                                        <tr>
+                                            <td>Post Id</td>
+                                            <td>Post Title</td>
+                                            <td>Post Content</td>
+                                            <td>Post Image</td>
+                                            <td>
+                                                Delete
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <%=eachPost._id%>
+                                            </td>
+                                            <td>
+                                                <%=eachPost.title%>
+
+                                            </td>
+                                            <td>
+                                                <%=eachPost.content%>
+                                            </td>
+                                            <td>
+                                                <img src="<%= eachPost.picture ? '/images/uploads/' + eachPost.picture : '/images/default.jpg' %>"
+                                                    alt="">
+
+                                            </td>
+                                            <td>
+                                                <form id="delete-post-form-<%= eachPost._id %>"
+                                                    action="/admin/deletePost/<%= eachPost._id %>" method="POST">
+                                                    <button class="delete-post-button"
+                                                        data-post-id="<%= eachPost._id %>">
+                                                        <i class="ri-delete-bin-6-fill" style="color: red;"></i>
+                                                    </button>
+                                                </form>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <%})%>
+
+                        </td>
+                        <td>ashok giri</td>
+                        <td>
+                            <img src="<%= eachUser.userPhoto ? '/images/uploads/' + eachUser.userPhoto : '/images/nouser.webp' %>"
+                                alt="">
+                        </td>
+                        <td>
+                            <form action="/admin/deleteUser/<%=eachUser._id%>" method="post"
+                                onsubmit="return confirm('Are you sure you want to delete this user?')">
+                                <button data-post-id="<%=eachUser._id%>">
+                                    <i class="ri-delete-bin-6-fill"></i>
+                                </button>
+                            </form>
+
+                            </i>
+                        </td>
+                    </tr>
+
+                    <%})%>
+
+
+            </table>
+        </div>
+    </div>
+
+
+
+    <!-- jquery cdn -->
+    <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <!-- axios link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"
+        integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        const seePostButton = document.querySelectorAll("button.see-post-button");
+
+        seePostButton.forEach((button) => {
+            button.addEventListener("click", () => {
+                // Toggle active class on all next sibling elements with class name user-posts
+                let nextSibling = button.nextElementSibling;
+                while (nextSibling && nextSibling.classList.contains("user-posts")) {
+                    nextSibling.classList.toggle("active");
+                    nextSibling = nextSibling.nextElementSibling;
+                }
+            });
+        });
+    </script>
+
+
+
+    <script>
+        // Get all delete post buttons
+        const deletePostButtons = document.querySelectorAll('.delete-post-button');
+
+        // Attach click event listener to each delete post button
+        deletePostButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                // Prevent default form submission
+                event.preventDefault();
+
+                // Get the post ID from the data attribute
+                const postId = button.getAttribute('data-post-id');
+
+                // Ask for confirmation before submitting the form
+                const confirmation = confirm('Are you sure you want to delete this post?');
+
+                // If user confirms, submit the form
+                if (confirmation) {
+                    const form = document.getElementById(`delete-post-form-${postId}`);
+                    form.submit();
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        const input = document.querySelector(".input-username");
+        const tableRows = document.querySelectorAll(".username-row");
+
+        input.addEventListener("input", function (event) {
+            const searchTerm = input.value.trim().toLowerCase();
+
+            tableRows.forEach(row => {
+                const username = row.querySelector(".username").textContent.toLowerCase();
+                if (username.includes(searchTerm)) {
+                    row.style.display = "table-row";
+                    row.style.backgroundColor = "#333"; // Set background color to red
+                } else {
+                    row.style.display = "none";
+                }
+            });
+
+            // Remove background color when input is cleared
+            if (searchTerm === "") {
+                tableRows.forEach(row => {
+                    row.style.backgroundColor = ""; // Reset background color
+                });
+            }
+        });
+    </script>
+
+
+
+
+
+</body>
+
+</html>

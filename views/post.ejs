@@ -1,0 +1,196 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= post.title%>
+
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="shortcut icon" href="/favicon/android-chrome-192x192.png" type="image/x-icon">
+
+
+
+
+</head>
+
+<body>
+
+    <%- include ('header');%>
+
+        <main class="post-page">
+            <div class="qucickbar">
+
+                <div>
+                    <a href="/">
+                        <i class="ri-home-smile-fill"></i>
+                    </a>
+                    <% if (!userLoggedIn) { %>
+                        <a href="/facebook">
+                            <i class="ri-twitter-x-line"></i>
+                        </a>
+                        <% } %>
+
+                            <% if (!userLoggedIn) { %>
+                                <a href="/facebook">
+                                    <i class="ri-facebook-line"></i>
+                                </a>
+                                <% } %>
+                                    <% if (!userLoggedIn) { %>
+                                        <a href="/facebook">
+                                            <i class="ri-instagram-line"></i>
+                                        </a>
+                                        <% } %>
+
+                                            <% if (userLoggedIn) { %>
+                                                <a href="/admin">
+                                                    <i class="ri-add-circle-line"></i>
+                                                </a>
+                                                <% } %>
+                                                    <% if (userLoggedIn) { %>
+                                                        <a href="/updateProfilePicture">
+                                                            <i class="ri-image-circle-line"></i>
+                                                        </a>
+                                                        <% } %>
+
+                                                            <% if (userLoggedIn) { %>
+                                                                <a href="/logout">
+                                                                    <i class="ri-logout-circle-r-line"></i>
+                                                                </a>
+                                                                <% } %>
+
+                </div>
+
+
+            </div>
+
+
+            <aside class="section-container">
+
+                <section class="post-page">
+
+
+                    <!-- admin div -->
+                    <div class="admin-class">
+                        <div class="left">
+                            <div class="admin-image">
+                                <img src="/uploads/<%=admin.profilePicture%>" alt="">
+                            </div>
+                            <h3>
+                                <%=admin.username%>
+
+                            </h3>
+                            <h4>
+                                <%=formattedDate%>
+
+                            </h4>
+                        </div>
+
+                        <div class="right">
+                            <% if(userLoggedIn){%>
+                                <form action="/post/<%=post._id%>/delete" method="POST" class="delete-button">
+                                    <button type="submit">
+                                        <i class="ri-delete-bin-6-line"></i>
+                                    </button>
+                                </form>
+                                <%}%>
+                        </div>
+                    </div>
+
+
+
+                    <div class="post">
+
+
+
+
+                        <!-- <h2>titke</h2> -->
+                        <div class="post-title">
+                            <%= post.title%>
+
+
+                        </div>
+                        <div class="post-content">
+                            <%= post.content %>
+
+                        </div>
+                        <div class="post-image">
+                            <% if (post.imageUrl) { %>
+                                <img src="/uploads/<%= post.imageUrl %>" alt="<%= post.title %>">
+                                <% } else { %>
+                                    <% } %>
+                        </div>
+
+                        <div class="post-option">
+                            <button class="share-button">
+                                Share
+                            </button>
+                            <div class="social-media ">
+                                <a href="">
+                                    <i class="ri-messenger-line"></i>
+                                </a>
+                                <a href="" class="facebook">
+                                    <i class="ri-facebook-line"></i>
+                                </a>
+                                <a href="">
+
+                                    <i class="ri-twitter-x-line"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </section>
+            </aside>
+
+            <aside class="recent-post">
+
+                <h2>Recent Post</h2>
+                <div class="top-5">
+                    <% top5.forEach(post=> { %>
+
+
+                        <a href="/post/<%=post._id%>">
+                            <h3>
+                                - <%= post.title %>
+
+                            </h3>
+
+                            <% if (post.imageUrl) { %>
+                                <img style="height: 2rem; width:2rem; border-radius: 10px;"
+                                    src="/uploads/<%=post.imageUrl%>" alt="">
+                                <% } else { %>
+                                    <% } %>
+                        </a>
+
+                        <% }); %>
+
+                </div>
+                <a href="/anish/allpost" class="see-all-post">
+                    <span>
+                        See All Post
+                    </span>
+                    <i class="ri-arrow-right-line"></i>
+                </a>
+            </aside>
+        </main>
+
+        <script src="/javascripts/script.js"></script>
+
+
+        <script>
+            const link = encodeURI(window.location.href)
+            // console.log(link)
+            const fb = document.querySelector(".facebook")
+            const hell = fb.href = `https://www.facebook.com/share.php?u=${link}`
+            console.log(hell)
+        </script>
+</body>
+
+</html>

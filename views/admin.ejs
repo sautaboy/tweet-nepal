@@ -1,0 +1,154 @@
+<!-- views/admin.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard / post </title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+
+
+
+
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="shortcut icon" href="/favicon/android-chrome-192x192.png" type="image/x-icon">
+
+
+
+
+
+
+</head>
+
+<body>
+    <%- include ('header');%>
+
+
+        <main class="admin">
+            <div class="qucickbar">
+                <div>
+                    <a href="/">
+                        <i class="ri-home-smile-fill"></i>
+                    </a>
+                    <% if (!userLoggedIn) { %>
+                        <a href="/facebook">
+                            <i class="ri-twitter-x-line"></i>
+                        </a>
+                        <% } %>
+
+                            <% if (!userLoggedIn) { %>
+                                <a href="/facebook">
+                                    <i class="ri-facebook-line"></i>
+                                </a>
+                                <% } %>
+                                    <% if (!userLoggedIn) { %>
+                                        <a href="/facebook">
+                                            <i class="ri-instagram-line"></i>
+                                        </a>
+                                        <% } %>
+
+                                            <% if (userLoggedIn) { %>
+                                                <a href="/admin">
+                                                    <i class="ri-add-circle-line"></i>
+                                                </a>
+                                                <% } %>
+                                                    <% if (userLoggedIn) { %>
+                                                        <a href="/updateProfilePicture">
+                                                            <i class="ri-image-circle-line"></i>
+                                                        </a>
+                                                        <% } %>
+
+                                                            <% if (userLoggedIn) { %>
+                                                                <a href="/logout">
+                                                                    <i class="ri-logout-circle-r-line"></i>
+                                                                </a>
+                                                                <% } %>
+
+                </div>
+
+
+            </div>
+        </main>
+
+
+        <form class="post" id="postForm" action="/admin/post" method="POST" enctype="multipart/form-data">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" placeholder="Title of the Post" oninput="checkForm()">
+
+
+
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" placeholder="Content ..." oninput="checkForm()"></textarea>
+
+            <img src="" id="preview" hidden>
+            <div class="choose-image">
+                <span class="select-an-image">Select an Image</span>
+                <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)"
+                    oninput="checkForm()">
+            </div>
+
+            <input type="submit" id="submitButton" value="Post" disabled>
+        </form>
+
+        <script>
+            function checkForm() {
+                const titleValue = document.getElementById('title').value;
+                const contentValue = document.getElementById('content').value;
+                const imageValue = document.getElementById('image').value;
+                const submitButton = document.getElementById('submitButton');
+
+                // Enable the submit button if at least one input has a value
+                if (titleValue.trim() !== '' || contentValue.trim() !== '' || imageValue !== '') {
+                    submitButton.disabled = false;
+                } else {
+                    submitButton.disabled = true;
+                }
+            }
+        </script>
+
+
+
+        <script>
+
+
+
+
+            function previewImage(event) {
+                const preview = document.getElementById('preview');
+                const file = event.target.files[0];
+
+
+                // Check if a file is selected
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onloadend = () => {
+                        preview.src = reader.result;
+                        preview.removeAttribute('hidden'); // Remove the hidden attribute
+                    }
+
+                    // Read the file as a data URL
+                    reader.readAsDataURL(file);
+                } else {
+                    // If no file is selected, clear the preview and hide the image
+                    preview.src = "";
+                    preview.setAttribute('hidden', 'true'); // Add the hidden attribute
+                }
+            }
+
+
+
+
+
+
+
+        </script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/stylesheets/main.css">
+
+
+
+
+
+
+
+  <style>
+    .section-container {
+      flex-direction: column;
+    }
+
+    section {
+      display: flex;
+      width: 100%;
+    }
+
+    form {
+      /* margin-top: 10rem; */
+      position: fixed;
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%);
+      background: #000;
+      padding: 20px;
+      width: 25%;
+      z-index: 2;
+      display: none;
+    }
+
+    form.active {
+      display: flex;
+    }
+
+    form textarea,
+    form input {
+      outline: none;
+      border: none;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+
+    form i.close-form {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    form div {
+      background: rgb(127, 127, 127);
+      min-height: 10rem;
+      width: 10rem;
+      border-radius: 50%;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    form div input {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      z-index: 2;
+    }
+
+    form div span {
+      position: absolute;
+      /* display: none; */
+    }
+
+    form div img {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      ;
+      left: 0;
+      top: 0;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+
+    @media (max-width: 767px) {
+
+      .recent-post,
+      .qucickbar {
+        display: none;
+        transform: translate(-500%);
+      }
+
+      .section-container {
+        width: 100%;
+        padding: 2.2rem 0rem;
+      }
+
+      section .post .post-image img {
+        object-fit: cover;
+      }
+
+      form {
+        width: 95%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .qucickbar {
+        transform: translate(-40000%);
+        display: none;
+      }
+
+      form {
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="qucickbar">
+
+
+  </div>
+
+
+  </div>
+
+  <form action="/editProfile" method="POST" class=" register-form  edit-profile-form " enctype="multipart/form-data">
+    <i class="ri-close-circle-line close-form"></i>
+    <label for="username">Username:</label>
+    <input type="text" name="username" placeholder="username" value="">
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" placeholder="password">
+
+    <div>
+      <label for="userPhoto"></label>
+      <input type="file" id="image" name="userPhoto" accept="image/*" onchange="previewImage(event)">
+      <img src="" alt="" class="preview" hidden>
+      <span>Choose Photo</span>
+    </div>
+
+
+    <input type="submit" id="submitButton">
+  </form>
+
+
+
+
+
+
+
+  <script>
+    function validateForm() {
+      // Get the input field values
+      var prevPassword = document.getElementById("prevPassword").value;
+      var prevUsername = document.getElementById("prevUsername").value;
+      var newPassword = document.getElementById("newPassword").value;
+      var newUsername = document.getElementById("newUsername").value;
+
+      // Check if any field is empty
+      if (prevPassword.trim() === "" || prevUsername.trim() === "" || newPassword.trim() === "" || newUsername.trim() === "") {
+        // If any field is empty, prevent form submission
+        alert("All fields are required!");
+        return false;
+      }
+      // If all fields are filled, allow form submission
+      return true;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,1079 @@
+@font-face {
+    font-family: popins;
+    src: url("/Poppins-Italic.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    font-family: serif;
+    box-sizing: border-box;
+    font-family: popins;
+    font-family: Arial, Helvetica, sans-serif;
+    color: hsl(0, 0%, 80%);
+    letter-spacing: 1px;
+    font-family: monospace;
+    font-family: sans-serif;
+    letter-spacing: 1 px;
+}
+
+
+:root {
+    --border_color: rgb(52, 54, 57);
+    --yellow: rgb(233, 161, 48);
+    --grey: rgb(127, 127, 127);
+    --black: rgb(33, 33, 33);
+    --dark: rgb(45, 45, 45);
+    --white: #fff;
+    --icon-color: rgb(247, 226, 171);
+}
+
+
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border: 1px solid var(--border_color);
+    object-position: center !important;
+}
+
+i {
+    color: var(--icon-color);
+    cursor: pointer;
+}
+
+
+html,
+body {
+    background: var(--black);
+    scroll-behavior: smooth;
+}
+
+
+main {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+    gap: 2rem;
+    min-height: 100vh;
+    position: relative;
+}
+
+
+#form-container {
+    position: fixed;
+    background: green;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    width: 40%;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 2;
+}
+
+#form-container form {
+    display: flex;
+    flex-direction: column;
+    background: var(--dark);
+    gap: 1rem;
+    padding: 20px;
+    display: none;
+    transition: .2s ease-in-out;
+    transform: translate(100%);
+    position: relative;
+    z-index: 2;
+}
+
+#form-container form.active {
+    display: flex;
+    transform: translate(0%);
+}
+
+#form-container form i {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+#form-container form input,
+#form-container form textarea {
+    padding: 20px;
+    border: none;
+    outline: none;
+    color: var(--white);
+    border-radius: 10px;
+    background: var(--black);
+    resize: none;
+    resize: none;
+}
+
+
+
+#form-container form input[type="submit"] {
+    background: var(--black);
+    cursor: pointer;
+    border-top: 1px solid var(--white);
+    border-top: 1px solid var(--white);
+    transition: .2s linear;
+}
+
+#form-container form input[type="submit"]:hover {
+    transform: translateY(2%);
+}
+
+
+#form-container form div {
+    background: rgb(127, 127, 127);
+    min-height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#form-container form div input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+}
+
+#form-container form div span {
+    position: absolute;
+}
+
+#form-container form div img {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+
+
+
+
+
+
+#middle-side,
+#left-side,
+#right-side {
+    display: flex;
+    flex-direction: column;
+    background: var(--black);
+    height: 100%;
+    padding: 2rem 10px;
+}
+
+#left-side {
+    width: 20%;
+    gap: 2rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+#left-side a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-wrap: nowrap;
+}
+
+#left-side a:hover {
+    background: var(--border_color);
+}
+
+#left-side a.view-notes {
+    display: none;
+}
+
+#left-side a i {
+    font-size: 1.6rem;
+}
+
+#left-side div.bottom-logout {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    bottom: 2rem;
+    justify-content: flex-start;
+    width: 100%;
+    /* background: var(--border_color); */
+    padding: 10px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+#left-side div.bottom-logout:hover {
+    background: var(--border_color);
+}
+
+#left-side div.bottom-logout div.span {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#left-side div.pop-up {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: absolute;
+    top: calc(-110% - 20px);
+    left: 0rem;
+    background: #111;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px 0;
+    display: none;
+    overflow: hidden;
+    transition: .3s ease-in-out;
+}
+
+#left-side div.pop-up a {
+    border-radius: initial;
+    padding: 10px 20px;
+}
+
+#left-side div.pop-up.active {
+    display: flex;
+}
+
+
+#left-side div.bottom-logout img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+
+}
+
+#left-side span.username {
+    color: hsl(0, 0%, 80%);
+    color: var(--yellow);
+}
+
+#left-side div.bottom-logout i {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+}
+
+
+
+/* middle side */
+#middle-side {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-right: 1px solid var(--border_color);
+    border-left: 1px solid var(--border_color);
+    position: relative;
+    overflow-x: hidden;
+}
+
+.search-container {
+    background: var(--dark);
+    position: fixed;
+    top: 2rem;
+    left: 27%;
+    z-index: 3;
+    width: 30%;
+    max-height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--yellow);
+    transform: translateY(-145%);
+    transition: .2s linear;
+}
+
+.search-container .searched-username-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+}
+
+.search-container.active {
+    transform: translateY(0%);
+}
+
+.search-container i.cancel {
+    position: absolute;
+}
+
+.search-container>div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+}
+
+.search-container div:nth-child(1) input {
+    padding: 20px 30px;
+    width: 90%;
+    background: var(--black);
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}
+
+.search-container div:nth-child(1) i {
+    position: absolute;
+    right: 0;
+    width: fit-content;
+    font-size: 1.6rem;
+}
+
+.search-container div img.searched-user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.search-container div.searched-username {
+    display: flex;
+    gap: 10px;
+    background: var(--black);
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    position: relative;
+}
+
+.search-container div.searched-username a.holds-id-of-username {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+
+.search-container div.searched-username div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.search-container div p.searched-user-username {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--yellow);
+}
+
+.search-container div p.searched-user-name {
+    font-size: 14px;
+    text-transform: capitalize;
+}
+
+
+
+
+.main-section-post-div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    position: relative;
+    border-bottom: 1px solid var(--border_color);
+    background: red;
+    background: var(--border_color);
+    border-radius: 10px;
+    /* padding: 10px; */
+    background: #2222;
+}
+
+
+
+section a.holds-the-id-of-post {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+section .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* border-bottom: 1px solid var(--border_color); */
+    /* padding-bottom: 10px; */
+    position: relative;
+}
+
+section .user-info div p {
+    font-size: 12px;
+}
+
+section .user-info a.username-and-date {
+    display: flex;
+    gap: 3px;
+}
+
+section .user-info a.username-and-date p.username {
+    color: var(--yellow);
+}
+
+section .user-info a.username-and-date p.date {
+    color: green;
+}
+
+section p.comment-date {
+    color: green;
+}
+
+section .user-info img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: left;
+}
+
+section .user-info i.ri-more-line {
+    position: absolute;
+    right: 10px;
+}
+
+section .post {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+section .post h1 {
+    font-size: 16px;
+    text-transform: capitalize;
+}
+
+section .post p {
+    font-size: 14px;
+    text-transform: capitalize;
+    text-transform: justify;
+    line-height: 20px;
+}
+
+
+section #post-delete-div.active {
+    display: flex;
+}
+
+
+section a.post-delete-button {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    color: red;
+    position: absolute;
+    right: 3rem;
+    display: none;
+    background: #000;
+    border-radius: 10px;
+}
+
+section a.post-delete-button.active {
+    display: flex;
+}
+
+
+section a.post-delete-button span,
+section a i.ri-delete-bin-fill {
+    color: red;
+}
+
+section .post .post-image-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+section .post img {
+    border-radius: 10px;
+    border: 1px solid var(--border_color);
+    max-height: 80vh;
+    object-fit: contain;
+    object-position: left;
+    max-width: fit-content;
+}
+
+section .post-footer {
+    display: flex;
+    margin-left: 50px;
+    margin-top: 10px;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 5px;
+    position: relative;
+}
+
+section .post-footer i {
+    font-size: 18px;
+}
+
+section .share-icon {
+    position: absolute;
+    bottom: 135%;
+    padding: 10px 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--border_color);
+    border-radius: 10px;
+    border: 1px solid #000;
+    display: none;
+}
+
+section .share-icon.active {
+    display: flex;
+}
+
+section .share-icon a {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+section .share-icon a span {
+    position: absolute;
+    left: -160%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    color: #fff;
+    background: #000;
+    height: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10rem;
+    border: 1px solid var(--border_color);
+}
+
+section .share-icon a:hover span {
+    opacity: 1;
+}
+
+
+section .share-icon a:hover {
+    background: #000;
+}
+
+section .share-icon a i {
+    font-size: 2rem;
+}
+
+section .post-footer .comment-div form {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    background: var(--dark);
+    left: 0;
+    overflow: hidden;
+    border: 1px solid var(--border_color);
+    border-radius: 10px;
+    padding: 20px;
+    display: none;
+
+}
+
+section .post-footer .comment-div form i.close-form {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+section .post-footer .comment-div form textarea::placeholder {
+    color: var(--yellow);
+    resize: none;
+}
+
+section .post-footer .comment-div form textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 20px;
+    background: transparent;
+    font-size: 16px;
+    color: var(--yellow);
+    min-height: fit-content;
+    color: var(--white);
+    resize: none;
+
+}
+
+section .post-footer .comment-div form div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+section .post-footer .comment-div form input[type="submit"] {
+    /* position: absolute; */
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--black);
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+}
+
+section .post-footer .comment-div form.active {
+    display: block;
+}
+
+
+section #commentForm {
+    display: flex;
+}
+
+
+/* comment area */
+section .comment-area {
+    margin-top: 10px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    /* border: 1px solid var(--border_color); */
+}
+
+section .comment-area div.post-your-reply {
+    gap: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border_color);
+    border-top: 1px solid var(--border_color);
+    padding: 20px 0;
+}
+
+section .comment-area div.post-your-reply form {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+section .comment-area div.post-your-reply form textarea {
+    background: var(--black);
+    border: none;
+    outline: none;
+    padding: 20px;
+    font-size: 16px;
+    resize: none;
+}
+
+
+section .comment-area div.post-your-reply form input {
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background: var(--dark);
+    cursor: pointer;
+    width: fit-content;
+    position: relative;
+    left: 88%;
+}
+
+section .comment-area div.post-your-reply img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+section.clicked-post.view-comment-post .post,
+section.clicked-post.view-comment-post .post-footer {
+    margin-left: 0;
+}
+
+section.clicked-post.view-comment-post .post {
+    margin-top: 15px;
+}
+
+section.clicked-post.view-comment-post .user-info.commenters {
+    border-top: 1px solid var(--border_color);
+    border-bottom: 1px solid var(--border_color);
+    padding: 10px 0;
+}
+
+section.clicked-post.view-comment-post div.flex-column {
+    /* background: red; */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+section.clicked-post.view-comment-post div.flex-column p {
+    line-height: 20px;
+    font-size: 14px;
+}
+
+
+section.com section.clicked-post.view-comment-post .post {
+    margin-left: 0;
+    margin-top: 15px;
+}
+
+section.clicked-post.view-comment-post .post-footer {
+    margin-left: 0;
+}
+
+section a.view-all-comments {
+    margin-left: 50px;
+    margin-top: 10px;
+    color: var(--white);
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.main-section-post-div form.write-comment-from-post {
+    width: 90%;
+    margin-left: 50px;
+    display: flex;
+    position: relative;
+    min-height: 2rem;
+    margin-top: 10px;
+    /* background: red; */
+}
+
+.main-section-post-div form.write-comment-from-post textarea {
+
+    background: none;
+    width: 90%;
+    border: none;
+    outline: none;
+    overflow-y: hidden;
+    display: flex;
+    padding: 0;
+    text-align: justify;
+    display: flex;
+    position: relative;
+    font-size: 18px;
+    resize: none;
+}
+
+.main-section-post-div form.write-comment-from-post input {
+
+    border: none;
+    outline: none;
+    color: hsl(0, 0%, 70%);
+    width: 10%;
+    cursor: pointer;
+    /* height: 100%; */
+    position: sticky;
+    background: none;
+    right: 3rem;
+    align-self: flex-end;
+    margin-bottom: 15px;
+}
+
+.view-latest-comment {
+    width: 100%;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+#right-side {
+    width: 20%;
+    position: relative;
+    position: sticky;
+    top: 0;
+    display: flex;
+    gap: 10px;
+    height: 100vh;
+    overflow: scroll;
+}
+
+#right-side i.cancel {
+    /* position: absolute; */
+    float: right;
+    right: 10px;
+    font-size: 1.6rem;
+    top: 10px;
+    margin-left: 90%;
+    display: none;
+
+}
+
+#right-side::-webkit-scrollbar {
+    display: none;
+}
+
+#right-side .add-note-div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+#right-side .add-note-div button {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background: none;
+    border: none;
+    background: transparent;
+}
+
+#right-side .add-note-div button i {
+    color: green;
+    font-size: 16px;
+
+}
+
+#right-side .add-note-div button i:hover {
+    font-size: 18px;
+}
+
+
+#right-side textarea {
+    background: none;
+    border: none;
+    padding: 10px 0;
+    background: var(--border_color);
+    outline: none;
+    border-radius: 10px;
+    padding: 15px 10px;
+    border: 1px solid #222;
+    padding-right: 30px;
+    outline: none;
+    resize: none;
+}
+
+#right-side span.error {
+    color: crimson;
+    font-size: 12px;
+    position: absolute;
+    bottom: -20px;
+    left: 10px;
+}
+
+#right-side ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 20px;
+}
+
+#right-side ul h4 {
+    padding: 10px;
+    background: var(--border_color);
+    /* position: relative; */
+    border-radius: 10px;
+    top: 4px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    color: hsl(0, 0%, 80%);
+}
+
+
+#right-side ul div {
+    /* background: red; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    background: var(--border_color);
+    padding: 10px;
+    border-radius: 10px;
+    border-top: 1px solid #444;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+#right-side ul span.note-username {
+    color: var(--yellow);
+}
+
+#right-side ul div form {
+    height: 100%;
+    width: 100%;
+    background: hsl(0, 80%, 50%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    transform: translateY(100%);
+    transition: .3s ease-in-out;
+}
+
+#right-side ul div form button {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    background: transparent;
+}
+
+#right-side ul div:hover form {
+    transform: translateY(0%);
+}
+
+
+#right-side ul div span {
+    font-size: 14px;
+    color: var(--yellow)
+}
+
+
+#right-side ul p {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+
+#right-side .photo-gallery img {
+    border-radius: 10px;
+    background: var(--border_color);
+    min-height: 10rem;
+    max-height: 15rem;
+}
+
+
+@media(max-width:767px) {
+
+    main {
+        width: 100%;
+    }
+
+    #left-side {
+        position: fixed;
+        height: 100vh;
+        background: var(--black);
+        top: 0;
+
+        transform: translateX(-100%);
+        width: 100%;
+        z-index: 8;
+        transition: .3s ease-in-out;
+    }
+
+    #left-side.active {
+        transform: translateX(0%);
+    }
+
+    #middle-side {
+        width: 100%;
+    }
+
+
+
+    #form-container {
+        width: 97%;
+        max-height: 100vh;
+    }
+
+
+    .search-container {
+        width: 96%;
+        position: fixed;
+        height: fit-content;
+        top: 5rem;
+        transform: translateY(-205%);
+        left: 2%;
+    }
+
+    /* #right-side i.cancel {
+        display: none;
+    } */
+
+    #left-side div.bottom-logout {
+        width: 90%;
+    }
+
+    #left-side div.pop-up {
+        width: 90%;
+    }
+
+
+    section .comment-area div.post-your-reply form input {
+        left: 80%;
+    }
+
+
+    #right-side {
+        display: flex;
+        position: fixed;
+        width: 100%;
+        right: -100%;
+        transition: .3s ease-in-out;
+        z-index: 99;
+    }
+
+    #right-side.active {
+        right: 0%;
+    }
+
+    #left-side a.view-notes {
+        display: flex;
+    }
+
+    #right-side i.cancel {
+        display: flex;
+    }
+}

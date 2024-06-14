@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="/favicon/android-chrome-192x192.png" type="image/x-icon">
+
+
+
+    <style>
+        :root {
+            --border_color: rgb(52, 54, 57);
+            --yellow: rgb(233, 161, 48);
+            --grey: rgb(127, 127, 127);
+            --black: rgb(33, 33, 33);
+            --dark: rgb(45, 45, 45);
+            --white: #fff;
+            --icon-color: rgb(247, 226, 171);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+
+        html,
+        body {
+            background: #000;
+        }
+
+        #main {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+
+
+
+
+
+
+
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            height: 100%;
+        }
+
+
+
+        .title {
+            /* color: #264143; */
+            font-weight: 900;
+            font-size: 1.4em;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .sub_title {
+            font-weight: 600;
+            margin: 5px 0;
+        }
+
+        input {
+            border-radius: 10px !important;
+            overflow: hidden;
+            background: #ffffff14;
+            margin: 1rem auto;
+        }
+
+
+        .form_style {
+            outline: none;
+            width: 290px;
+            padding: 12px 10px;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+
+        .form_style:focus,
+        .btn:focus {
+            transform: translateY(4px);
+
+        }
+
+        .btn {
+            padding: 15px;
+            margin: 25px 0px;
+            font-size: 15px;
+            background: transparent;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            opacity: .9;
+        }
+
+        .link {
+            font-weight: 800;
+            color: var(--yellow);
+            padding: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+
+    <div id="main">
+        <div class="container" id="signup">
+            <div class="form_area">
+                <p class="title">SIGN UP</p>
+                <form action="/createUser" method="post" autocomplete="off">
+                    <input placeholder="name" class="form_style" type="text" name="name">
+                    <input placeholder="password" id="password" class="form_style" name="password" type="password">
+
+                    <input placeholder="username" class="form_style" type="text" name="username"
+                        onkeyup="checkUsernameAvailability()">
+                    <p class="usernameAvailable"></p>
+                    <div>
+                        <button class="btn" id="submitButton">SIGN UP</button>
+                        <p>Have an Account? <a class="link" href="#login">Login Here!</a></p><a class="link"
+                            href="#login">
+                        </a>
+                    </div><a class="link" href="">
+
+                    </a>
+                </form>
+            </div><a class="link" href="">
+            </a>
+        </div>
+
+
+        <div class="container" id="login">
+            <div class="form_area">
+                <p class="title">Log In</p>
+                <form action="/login" method="post" autocomplete="off">
+
+                    <input placeholder="Enter your username" class="form_style" type="text" name="username"
+                        onkeyup="checkUsernameAvailability()" name="username">
+                    <input placeholder="Enter your password" class="form_style" type="password" name="password">
+                    <div>
+                        <button class="btn">LOG IN</button>
+                        <p>Create an Account? <a class="link" href="#signup">Sign up Here!</a></p>
+                    </div><a class="link" href="">
+
+                    </a>
+                </form>
+            </div><a class="link" href="">
+            </a>
+        </div>
+    </div>
+
+
+
+    <script>
+
+    </script>
+
+
+
+    <!-- jquery implementation -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+
+
+        function checkUsernameAvailability() {
+            // Get input values and trim whitespace
+            const username = document.querySelector('input[name="username"]').value.trim();
+            const password = document.querySelector('input[name="password"]').value.trim();
+            const name = document.querySelector('input[name="name"]').value.trim();
+            const messageElement = document.querySelector('.usernameAvailable');
+            const submitButton = document.getElementById('submitButton');
+
+            // Disable submit button initially
+            submitButton.disabled = true;
+
+            // Check if username, password, or name is empty or contains only whitespace
+            if (!username || !password || !name) {
+                return;
+            }
+
+            // Send an AJAX request to check the username availability
+            fetch('/checkUsername', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Update the UI based on the server response
+                    if (data.message === 'Username already exists') {
+                        messageElement.textContent = data.message;
+                        submitButton.disabled = true; // Disable submit button if username already exists
+                    } else {
+                        messageElement.textContent = '';
+                        submitButton.disabled = false; // Enable submit button if username is available
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking username availability:', error);
+                });
+        }
+    </script>
+
+
+
+</body>
+
+</html>

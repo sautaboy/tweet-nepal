@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update profile picture</title>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+
+    <link rel="shortcut icon" href="/favicon/android-chrome-192x192.png" type="image/x-icon">
+
+    <style>
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        form {
+
+            width: 55%;
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            gap: 10px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        #preview {
+            height: 20rem;
+            width: 20rem;
+            position: relative;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+
+
+
+        @media (max-width: 768px) {
+            form {
+
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <%- include ('header');%>
+
+        <main>
+            <div class="qucickbar">
+                <div>
+                    <a href="/">
+                        <i class="ri-home-smile-fill"></i>
+                    </a>
+                    <% if (!userLoggedIn) { %>
+                        <a href="/facebook">
+                            <i class="ri-twitter-x-line"></i>
+                        </a>
+                        <% } %>
+
+                            <% if (!userLoggedIn) { %>
+                                <a href="/facebook">
+                                    <i class="ri-facebook-line"></i>
+                                </a>
+                                <% } %>
+                                    <% if (!userLoggedIn) { %>
+                                        <a href="/facebook">
+                                            <i class="ri-instagram-line"></i>
+                                        </a>
+                                        <% } %>
+
+                                            <% if (userLoggedIn) { %>
+                                                <a href="/admin">
+                                                    <i class="ri-add-circle-line"></i>
+                                                </a>
+                                                <% } %>
+                                                    <% if (userLoggedIn) { %>
+                                                        <a href="/updateProfilePicture">
+                                                            <i class="ri-image-circle-line"></i>
+                                                        </a>
+                                                        <% } %>
+
+                                                            <% if (userLoggedIn) { %>
+                                                                <a href="/logout">
+                                                                    <i class="ri-logout-circle-r-line"></i>
+                                                                </a>
+                                                                <% } %>
+
+                </div>
+        </main>
+
+        <form class="post" action="/uploadphoto" method="POST" enctype="multipart/form-data">
+            <img id="preview" src="" alt="" hidden>
+
+            <div class="choose-image">
+                <span class=" select-an-image">Select an Image</span>
+                <input type="file" id="image" name="profilePicture" onchange="previewImage(event)">
+            </div>
+            <input type="submit" value="Update">
+
+
+        </form>
+
+        <script>
+            function previewImage(event) {
+                const preview = document.getElementById('preview');
+                const file = event.target.files[0];
+
+                // Check if a file is selected
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onloadend = () => {
+                        preview.src = reader.result;
+                        preview.removeAttribute('hidden'); // Remove the hidden attribute
+                    }
+
+                    // Read the file as a data URL
+                    reader.readAsDataURL(file);
+                } else {
+                    // If no file is selected, clear the preview and hide the image
+                    preview.src = "";
+                    preview.setAttribute('hidden', 'true'); // Add the hidden attribute
+                }
+            }
+
+        </script>
+</body>
+
+</html>

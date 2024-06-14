@@ -1,0 +1,32 @@
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+
+<style>
+    i.menu-button {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        font-size: 1.7rem;
+        z-index: 9;
+        display: none;
+    }
+
+    @media(max-width:767px) {
+        i.menu-button {
+            display: flex;
+        }
+    }
+</style>
+<i class="ri-menu-line menu-button"></i>
+
+
+<script>
+
+    const menu = document.querySelector(".menu-button");
+    menu.addEventListener("click", function (e) {
+        document.querySelector("#left-side").classList.toggle("active");
+        menu.classList.toggle("ri-menu-line");
+        menu.classList.toggle("ri-close-line");
+    });
+
+</script>

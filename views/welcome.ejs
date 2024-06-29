@@ -114,7 +114,6 @@
             color: var(--yellow);
             padding: 5px;
         }
-
     </style>
 </head>
 
@@ -126,25 +125,21 @@
         <div class="container" id="signup">
             <div class="form_area">
                 <p class="title">SIGN UP</p>
-                <form action="/createUser" method="post" autocomplete="off">
-                    <input placeholder="name" class="form_style" type="text" name="name">
-                    <input placeholder="password" id="password" class="form_style" name="password" type="password">
-
-                    <input placeholder="username" class="form_style" type="text" name="username"
-                        onkeyup="checkUsernameAvailability()">
+                <form action="/createUser" method="post" autocomplete="off" onsubmit="return validateForm()">
+                    <input placeholder="Enter Your Name" class="form_style formName" type="text" name="name" id="name">
+                    <input placeholder="Enter Your Password" id="password" class="form_style formPassword"
+                        name="password" type="password">
+                    <input placeholder="Enter Your Username" class="form_style" type="text" name="username"
+                        id="username" onkeyup="checkUsernameAvailability()">
                     <p class="usernameAvailable"></p>
                     <div>
-                        <button class="btn" id="submitButton">SIGN UP</button>
-                        <p>Have an Account? <a class="link" href="#login">Login Here!</a></p><a class="link"
-                            href="#login">
-                        </a>
-                    </div><a class="link" href="">
-
-                    </a>
+                        <button class="btn" id="submitButton" type="submit">SIGN UP</button>
+                        <p>Have an Account? <a class="link" href="#login">Login Here!</a></p>
+                    </div>
                 </form>
-            </div><a class="link" href="">
-            </a>
+            </div>
         </div>
+
 
 
         <div class="container" id="login">
@@ -178,8 +173,6 @@
     <!-- jquery implementation -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-
-
 
         function checkUsernameAvailability() {
             // Get input values and trim whitespace
@@ -219,6 +212,53 @@
                 .catch(error => {
                     console.error('Error checking username availability:', error);
                 });
+        }
+    </script>
+
+    <script>
+        function validateForm() {
+            var name = document.getElementById('name').value;
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Validate name (proper name without numbers or special characters)
+            if (!isValidProperName(name)) {
+                alert("Please enter a valid name with only alphabetic characters. and One Word Name Only");
+                return false;
+            }
+
+            // Validate username (proper format, no numbers or special characters at the beginning)
+            if (!isValidUsername(username)) {
+                alert("Please enter a valid username. It should start with a letter and contain only letters and numbers.");
+                return false;
+            }
+
+            // Validate password (at least 8 characters with a mix of uppercase, lowercase, and numbers)
+            if (!isValidPassword(password)) {
+                alert("Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one digit.");
+                return false;
+            }
+
+            return true; // Form submission allowed if all validations pass
+        }
+
+        function isValidProperName(name) {
+            // Proper name should contain only alphabetic characters
+            return /^[a-zA-Z]+$/.test(name);
+        }
+
+        function isValidUsername(username) {
+            // Username should start with a letter, and contain only letters and numbers
+            return /^[a-zA-Z][a-zA-Z0-9]*$/.test(username);
+        }
+
+        function isValidPassword(password) {
+            // Password should be at least 8 characters with at least one uppercase letter, one lowercase letter, and one digit
+            return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
+        }
+
+        function checkUsernameAvailability() {
+            // You can implement AJAX or other checks for username availability here
         }
     </script>
 
